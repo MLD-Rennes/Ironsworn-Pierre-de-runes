@@ -3,6 +3,25 @@ UNIT=MM
 PAGE=210,297,LANDSCAPE,HV
 DPI=300
 CARDSIZE=63,88
-BASERANGE=,ON
+;BASERANGE=,ON
 
-LINK=runestones-data.csv
+LINKCSV=UTF8
+;LINKSEP=","
+LINK=runestones-data.csv, action, theme, lieu, descriptionLieu, trouble, role, objectif, descriptionPerso, actionCombat, contrecoup, rebondissement
+
+[n] = 2 ;; Indiquez le nombre de cartes
+;TODO: Indiquer le nombre de cartes à partir des données
+CARDS = [n]
+[all] = 1 - [n]
+
+; Créer les sequences de données
+
+[set(count)]%,(count),1,4 = autorange([n])
+[action(count)]%,(count),1,4 = labelsub([action], [set{(count)}])
+[theme(count)]%,(count),1,4 = labelsub([theme], [set{(count)}])
+[lieu(count)]%,(count),1,2 = labelsub([lieu], [set{(count)}])
+[descriptionLieu(count)]%,(count),1,2 = labelsub([descriptionLieu], [set{(count)}])
+[trouble(count)]%,(count),1,2 = labelsub([trouble], [set{(count)}])
+[role(count)]%,(count),1,2 = labelsub([role], [set{(count)}])
+[objectif(count)]%,(count),1,2 = labelsub([objectif], [set{(count)}])
+[descriptionPerso(count)]%,(count),1,4 = labelsub([descriptionPerso], [set{(count)}])
