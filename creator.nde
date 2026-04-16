@@ -9,8 +9,7 @@ LINKCSV=UTF8
 ;LINKSEP=","
 LINK=runestones-data.csv, action, theme, lieu, descriptionLieu, trouble, role, objectif, descriptionPerso, actionCombat, contrecoup, rebondissement
 
-[n] = 2 ;; Indiquez le nombre de cartes
-;TODO: Indiquer le nombre de cartes à partir des données
+[n] = {(action) / 4} ;; Indiquez le nombre de cartes
 CARDS = [n]
 [all] = 1 - [n]
 
