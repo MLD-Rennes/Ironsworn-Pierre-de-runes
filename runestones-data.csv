@@ -1,9 +1,9 @@
-action,theme,lieu,descriptionLieu,trouble,role,objectif,descriptionPerso,actionCombat,contrecoup,rebondissement,
-sÃ©curiser,idÃ©e,forÃªt,inondÃ©,hantise dÃ©chaÃ®nÃ©e,guerrier,redresser un tort,jeune,crÃ©er une opportunitÃ©,rituel impossible,un Ã©vÃ¨nement inattendu,
-arriver,reprÃ©sailles,cÃ´te,vide,conflit avec les premiers-nÃ©s,chasseur,assurer un devoir,aventureux,attaquer avec prÃ©cision,rituel rÃ©vÃ¨le,ennemi gagne,
-affecter,problÃ¨me, vallÃ©e,froid,conflit inter-familial,Ã©claireur,protÃ©ger une personne,reclus,,,,
-changer,santÃ©,baie,infestÃ©,gouvernance incomplÃªte,berger,protÃ©ger le statu-quo,artiste,,,,
-protÃ©ger,rÃªve,,,,,,opprimÃ©,,,,
-finir,communautÃ©,,,,,,vengeur,,,,
-renforcer,guerre,,,,,,invalide,,,,
-restaurer,prÃ©sage,,,,,,confus,,,,
+action,theme,lieu,descriptionLieu,trouble,role,objectif,descriptionPerso,actionCombat,contrecoup,rebondissement
+arriver,représailles,côte,vide,conflit avec les premiers-nés,chasseur,assurer un devoir,aventureux,attaquer avec précision,rituel révèle,ennemi gagne
+sécuriser,idée,forêt,inondé,hantise déchaînée,guerrier,redresser un tort,jeune,créer une opportunité,rituel impossible,un évènement inattendu
+changer,santé,baie,infesté,gouvernance incomplête,berger,protéger le statu-quo,artiste,,,
+affecter,problème,vallée,froid,conflit inter-familial,éclaireur,protéger une personne,reclus,,,
+finir,communauté,,,,,,vengeur,,,
+renforcer,guerre,,,,,,invalide,,,
+restaurer,présage,,,,,,confus,,,
+protéger,rêve,,,,,,opprimé,,,
