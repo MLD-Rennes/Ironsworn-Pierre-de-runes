@@ -24,15 +24,16 @@ CARDS = [n]
 [objectif(count)]%,(count),1,2 = labelsub([objectif], [set{(count)}])
 [descriptionPerso(count)]%,(count),1,4 = labelsub([descriptionPerso], [set{(count)}])
 
+; Icones de marques
+ICON = [all], B1, "img/barres/barre1.png"
+ICON = [all], B2, "img/barres/barre2.png"
+ICON = [all], B3, "img/barres/barre3.png"
+ICON = [all], B4, "img/barres/barre4.png"
+
 ;; Définir les frames
 <header> = 0, 0, 100%, 8%
 <content> = 4%, 10%, 92%, 88%
 
-;; Header
-RECTANGLE = [all], <header>, #4e7079
-;; Content
-EDGE = [all], CUSTOM, OSSS, ROUND
-FONT = Arial, 9, TX, #000000
 
 [content_marginX] = 4%
 [content_startY] = 10%
@@ -40,23 +41,39 @@ FONT = Arial, 9, TX, #000000
 [block_sizeY] = 7%
 
 {[info_structure] = "action_1_1_4|
-    theme_2_1_4|
-    lieu_3_2_2|
-    descriptionLieu_4_2_2|
-    trouble_5_2_2|
-    role_6_2_2|
-    objectif_7_2_2|
-    descriptionPerso_8_1_4|
-    actionCombat_9_4_1|
-    contrecoup_10_4_1|
-    rebondissement_11_4_1|
-    de_12_1_4"}
+theme_2_1_4|
+lieu_3_2_2|
+descriptionLieu_4_2_2|
+trouble_5_2_2|
+role_6_2_2|
+objectif_7_2_2|
+descriptionPerso_8_1_4|
+actionCombat_9_4_1|
+contrecoup_10_4_1|
+rebondissement_11_4_1|
+de_12_1_4"}
 {[(type_l_p_n)_frame_]%,(type_l_p_n), [info_structure] = framebar(
     {[content_marginX]+TOKENIZE((type_l_p_n),3,_)*[block_sizeX]/2},
     {[content_startY]+((2*TOKENIZE((type_l_p_n),2,_))-1)*[block_sizeY]/2},
     {100% - [content_marginX] - TOKENIZE((type_l_p_n),3,_)*[block_sizeX]/2},
     {[content_startY]+((2*TOKENIZE((type_l_p_n),2,_))-1)*[block_sizeY]/2},
     {TOKENIZE((type_l_p_n),3,_)*[block_sizeX]}, [block_sizeY], TOKENIZE((type_l_p_n),4,_))}
+
+{[barre] = framebar(
+    {[content_marginX]+[block_sizeX]/2},
+    {([content_startY]-2%)/2},
+    {100% - [content_marginX]-[block_sizeX]/2},
+    {([content_startY]-2%)/2},
+    [block_sizeX], [block_sizeY], 4)}
+
+;; Header
+RECTANGLE = [all], <header>, #4e7079
+
+ICONS = [all], "B{°}", <barre*>
+
+;; Content
+EDGE = [all], CUSTOM, OSSS, ROUND
+FONT = Arial, 9, TX, #000000
 
 <actionFrame> = <content, TS, [block_sizeY]>
 RECTANGLE = [all], <actionFrame>, #eeeeee
@@ -129,4 +146,4 @@ LINE =[all], <de_*_frame_2, PTR>, <de_*_frame_2, PBR>, #000000
 LINE =[all], <de_*_frame_3, PTR>, <de_*_frame_3, PBR>, #000000
 TEXT = [all], "{1d100}", <de_*_frame_*>, center, wwcenter
 
-;TEXT = [all], "[{CONCAT1(TOKENIZE(µ,1,_),TOKENIZE(µ,6,_))}]", <*_*_*_*_frame_*>, center, wwcenter
+;TEXT = [all], "[{CONCAT1(TOKENIZE(µ,1,_),TOKENIZE(µ,6,_))}]", <*_*_*_*_frame_*>, center, wwcenter*
