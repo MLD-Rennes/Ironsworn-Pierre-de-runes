@@ -1,4 +1,4 @@
-;BORDER=RECTANGLE,#000000,0.2
+BORDER=RECTANGLE,#000000,0.2
 UNIT=MM
 PAGE=210,297,LANDSCAPE,HV
 DPI=300
@@ -8,11 +8,11 @@ CARDSIZE=63,88
 LINKCSV=ANSI
 LINKSEP=,
 LINK=runestones-data.csv, action, theme, lieu, descriptionLieu, trouble, role, objectif, descriptionPerso, actionCombat, contrecoup, rebondissement
+LINK=runes-data.csv, nom, traduction, symbole
 
 [n] = {(action) / 4} ;; Indiquez le nombre de cartes
-CARDS = {2*[n]}
-[allfront] = 1 - [n]
-[allback] = {[n] + 1} - {2*[n]}
+[allfront] = 1-{[n]}
+[allback] = {[n] + 1}-{2 * [n]}
 [all] = rangeadd([allfront], [allback])
 
 ; Créer les sequences de données
@@ -37,36 +37,38 @@ ICON = [all], 4, "img/barres/barre4.png"
 <content> = 4%, 10%, 92%, 88%
 
 
-[content_marginX] = 4%
-[content_startY] = 10%
-[block_sizeX] = 23%
-[block_sizeY] = 7%
+[content_marginX] = 4
+[content_startY] = 9
+[block_sizeX] = 23
+[block_sizeY] = 7.5
 
-{[info_structure] = "action_1_1_4|
-theme_2_1_4|
-lieu_3_2_2|
-descriptionLieu_4_2_2|
-trouble_5_2_2|
-role_6_2_2|
-objectif_7_2_2|
-descriptionPerso_8_1_4|
-actionCombat_9_4_1|
-contrecoup_10_4_1|
-rebondissement_11_4_1|
-de_12_1_4"}
-{[(type_l_p_n)_frame_]%,(type_l_p_n), [info_structure] = framebar(
-    {[content_marginX]+TOKENIZE((type_l_p_n),3,_)*[block_sizeX]/2},
-    {[content_startY]+((2*TOKENIZE((type_l_p_n),2,_))-1)*[block_sizeY]/2},
-    {100% - [content_marginX] - TOKENIZE((type_l_p_n),3,_)*[block_sizeX]/2},
-    {[content_startY]+((2*TOKENIZE((type_l_p_n),2,_))-1)*[block_sizeY]/2},
-    {TOKENIZE((type_l_p_n),3,_)*[block_sizeX]}, [block_sizeY], TOKENIZE((type_l_p_n),4,_))}
+{[info_structure] = "action_1|
+theme_2|
+lieu_3|
+descriptionLieu_4|
+trouble_5|
+role_6|
+objectif_7|
+descriptionPerso_8|
+actionCombat_9|
+contrecoup_10|
+rebondissement_11|
+de_12"}
+
+{[content_frames_] = framebox([content_marginX]%,
+[content_startY]%,
+{100-2*[content_marginX]}%,
+{12*[block_sizeY]}%,
+[block_sizeX]%,
+[block_sizeY]%,
+C_)}
 
 {[barre] = framebar(
-    {[content_marginX]+[block_sizeX]/2},
-    {([content_startY]-2%)/2},
-    {100% - [content_marginX]-[block_sizeX]/2},
-    {([content_startY]-2%)/2},
-    [block_sizeX], [block_sizeY], 4)}
+{[content_marginX]+[block_sizeX]/2}%,
+{([content_startY]-2)/2}%,
+{100 - [content_marginX]-[block_sizeX]/2}%,
+{([content_startY]-2)/2}%,
+[block_sizeX]%, [block_sizeY]%, 4)}
 
 ;; Header
 RECTANGLE = [allfront], <header>, #4e7079
@@ -76,81 +78,108 @@ ICONS = [allfront], {°}, <barre?>, 8%, 8%
 EDGE = [allfront], CUSTOM, OSSS, ROUND
 FONT = Arial, 9, TX, #000000
 
-<actionFrame> = <content, TS, [block_sizeY]>
+[actionFrame] = framemeld(content_frames_*_1)
 RECTANGLE = [allfront], <actionFrame>, #eeeeee
 LINE = [allfront], <actionFrame, PTL>, <actionFrame, PTR>, #000000
-LINE =[allfront], <action_*_frame_1, PTR>, <action_*_frame_1, PBR>, #000000
-LINE =[allfront], <action_*_frame_2, PTR>, <action_*_frame_2, PBR>, #000000
-LINE =[allfront], <action_*_frame_3, PTR>, <action_*_frame_3, PBR>, #000000
-TEXT = [allfront], "[theme{TOKENIZE(µ, 6, _)}]", <theme*_frame_*>, center, wwcenter
+LINE =[allfront], <content_frames_1_1, PTR>, <content_frames_1_1, PBR>, #000000
+LINE =[allfront], <content_frames_2_1, PTR>, <content_frames_2_1, PBR>, #000000
+LINE =[allfront], <content_frames_3_1, PTR>, <content_frames_3_1, PBR>, #000000
+TEXT = [allfront], "[action{TOKENIZE(µ, 3, _)}]", <content_frames_*_1>, center, wwcenter
 
-<themeFrame> = <content, TS, [block_sizeY]>
-LINE = [allfront], <themeFrame, PTL>, <themeFrame, PTR>, #00000
-LINE =[allfront], <theme_*_frame_1, PTR>, <theme_*_frame_1, PBR>, #000000
-LINE =[allfront], <theme_*_frame_2, PTR>, <theme_*_frame_2, PBR>, #000000
-LINE =[allfront], <theme_*_frame_3, PTR>, <theme_*_frame_3, PBR>, #000000
-TEXT = [allfront], "[action{TOKENIZE(µ, 6, _)}]", <action*_frame_*>, center, wwcenter
+[themeFrame] = framemeld(content_frames_*_2)
+LINE = [allfront], <themeFrame, PTL>, <themeFrame, PTR>, #000000
+LINE =[allfront], <content_frames_1_2, PTR>, <content_frames_1_2, PBR>, #000000
+LINE =[allfront], <content_frames_2_2, PTR>, <content_frames_2_2, PBR>, #000000
+LINE =[allfront], <content_frames_3_2, PTR>, <content_frames_3_2, PBR>, #000000
+TEXT = [allfront], "[theme{TOKENIZE(µ, 3, _)}]", <content_frames_*_2>, center, wwcenter
 
-<lieuFrame> = <content, TS, [block_sizeY]>
+[lieuFrame] = framemeld(content_frames_*_3)
+[lieu_frames_1] = framemeld(content_frames_1_3, content_frames_2_3)
+[lieu_frames_2] = framemeld(content_frames_3_3, content_frames_4_3)
 RECTANGLE = [allfront], <lieuFrame>, #eeeeee
 LINE = [allfront], <lieuFrame, PTL>, <lieuFrame, PTR>, #000000
-LINE =[allfront], <lieu_*_frame_1, PTR>, <lieu_*_frame_1, PBR>, #000000
-TEXT = [allfront], "[lieu{TOKENIZE(µ, 6, _)}]", <lieu*_frame_*>, center, wwcenter
+LINE =[allfront], <lieu_frames_1, PTR>, <lieu_frames_1, PBR>, #000000
+TEXT = [allfront], "[lieu{TOKENIZE(µ, 3, _)}]", <lieu_frames_*>, center, wwcenter
 
-<descriptionLieuFrame> = <content, TS, [block_sizeY]>
+[descriptionLieuFrame] = framemeld(content_frames_*_4)
+[descriptionLieu_frames_1] = framemeld(content_frames_1_4, content_frames_2_4)
+[descriptionLieu_frames_2] = framemeld(content_frames_3_4, content_frames_4_4)
 LINE = [allfront], <descriptionLieuFrame, PTL>, <descriptionLieuFrame, PTR>, #000000
-LINE =[allfront], <descriptionLieu_*_frame_1, PTR>, <descriptionLieu_*_frame_1, PBR>, #000000
-TEXT = [allfront], "[descriptionLieu{TOKENIZE(µ, 6, _)}]", <descriptionLieu*_frame_*>, center, wwcenter
+LINE =[allfront], <descriptionLieu_frames_1, PTR>, <descriptionLieu_frames_1, PBR>, #000000
+TEXT = [allfront], "[descriptionLieu{TOKENIZE(µ, 3, _)}]", <descriptionLieu_frames_*>, center, wwcenter
 
-<troubleFrame> = <content, TS, [block_sizeY]>
+[troubleFrame] = framemeld(content_frames_*_5)
+[trouble_frames_1] = framemeld(content_frames_1_5, content_frames_2_5)
+[trouble_frames_2] = framemeld(content_frames_3_5, content_frames_4_5)
 RECTANGLE = [allfront], <troubleFrame>, #eeeeee
 LINE = [allfront], <troubleFrame, PTL>, <troubleFrame, PTR>, #000000
-LINE =[allfront], <trouble_*_frame_1, PTR>, <trouble_*_frame_1, PBR>, #000000
-TEXT = [allfront], "[trouble{TOKENIZE(µ, 6, _)}]", <trouble*_frame_*>, center, wwcenter
+LINE =[allfront], <trouble_frames_1, PTR>, <trouble_frames_1, PBR>, #000000
+TEXT = [allfront], "[trouble{TOKENIZE(µ, 3, _)}]", <trouble_frames_*>, center, wwcenter
 
-<roleFrame> = <content, TS, [block_sizeY]>
+[roleFrame] = framemeld(content_frames_*_6)
+[role_frames_1] = framemeld(content_frames_1_6, content_frames_2_6)
+[role_frames_2] = framemeld(content_frames_3_6, content_frames_4_6)
 LINE = [allfront], <roleFrame, PTL>, <roleFrame, PTR>, #000000
-LINE =[allfront], <role_*_frame_1, PTR>, <role_*_frame_1, PBR>, #000000
-TEXT = [allfront], "[role{TOKENIZE(µ, 6, _)}]", <role*_frame_*>, center, wwcenter
+LINE =[allfront], <role_frames_1, PTR>, <role_frames_1, PBR>, #000000
+TEXT = [allfront], "[role{TOKENIZE(µ, 3, _)}]", <role_frames_*>, center, wwcenter
 
-<objectifFrame> = <content, TS, [block_sizeY]>
+[objectifFrame] = framemeld(content_frames_*_7)
+[objectif_frames_1] = framemeld(content_frames_1_7, content_frames_2_7)
+[objectif_frames_2] = framemeld(content_frames_3_7, content_frames_4_7)
 RECTANGLE = [allfront], <objectifFrame>, #eeeeee
 LINE = [allfront], <objectifFrame, PTL>, <objectifFrame, PTR>, #000000
-LINE =[allfront], <objectif_*_frame_1, PTR>, <objectif_*_frame_1, PBR>, #000000
-TEXT = [allfront], "[objectif{TOKENIZE(µ, 6, _)}]", <objectif*_frame_*>, center, wwcenter
+LINE =[allfront], <objectif_frames_1, PTR>, <objectif_frames_1, PBR>, #000000
+TEXT = [allfront], "[objectif{TOKENIZE(µ, 3, _)}]", <objectif_frames_*>, center, wwcenter
 
-<descriptionPersoFrame> = <content, TS, [block_sizeY]>
-LINE = [allfront], <descriptionPersoFrame, PTL>, <descriptionPersoFrame, PTR>, #000000
-LINE =[allfront], <descriptionPerso_*_frame_1, PTR>, <descriptionPerso_*_frame_1, PBR>, #000000
-LINE =[allfront], <descriptionPerso_*_frame_2, PTR>, <descriptionPerso_*_frame_2, PBR>, #000000
-LINE =[allfront], <descriptionPerso_*_frame_3, PTR>, <descriptionPerso_*_frame_3, PBR>, #000000
-TEXT = [allfront], "[descriptionPerso{TOKENIZE(µ, 6, _)}]", <descriptionPerso*_frame_*>, center, wwcenter
+[descriptionPersoFrame] = framemeld(content_frames_*_8)
+LINE = [allfront], <actionFrame, PTL>, <actionFrame, PTR>, #000000
+LINE =[allfront], <content_frames_1_8, PTR>, <content_frames_1_8, PBR>, #000000
+LINE =[allfront], <content_frames_2_8, PTR>, <content_frames_2_8, PBR>, #000000
+LINE =[allfront], <content_frames_3_8, PTR>, <content_frames_3_8, PBR>, #000000
+TEXT = [allfront], "[descriptionPerso{TOKENIZE(µ, 3, _)}]", <content_frames_*_8>, center, wwcenter
 
-<actionCombatFrame> = <content, TS, [block_sizeY]>
+[actionCombatFrame] = framemeld(content_frames_*_9)
 RECTANGLE = [allfront], <actionCombatFrame>, #eeeeee
 LINE = [allfront], <actionCombatFrame, PTL>, <actionCombatFrame, PTR>, #000000
-TEXT = [allfront], "[actionCombat]", <actionCombat*_frame_*>, center, wwcenter
+LINE =[allfront], <actionCombatFrame, PTR>, <actionCombatFrame, PBR>, #000000
+TEXT = [allfront], [actionCombat], <actionCombatFrame>, center, wwcenter
 
-<contrecoupFrame> = <content, TS, [block_sizeY]>
+[contrecoupFrame] = framemeld(content_frames_*_10)
 LINE = [allfront], <contrecoupFrame, PTL>, <contrecoupFrame, PTR>, #000000
-TEXT = [allfront], "[contrecoup]", <contrecoup*_frame_*>, center, wwcenter
+LINE =[allfront], <contrecoupFrame, PTR>, <contrecoupFrame, PBR>, #000000
+TEXT = [allfront], [contrecoup], <contrecoupFrame>, center, wwcenter
 
-<rebondissementFrame> = <content, TS, [block_sizeY]>
+[rebondissementFrame] = framemeld(content_frames_*_11)
 RECTANGLE = [allfront], <rebondissementFrame>, #eeeeee
 LINE = [allfront], <rebondissementFrame, PTL>, <rebondissementFrame, PTR>, #000000
-TEXT = [allfront], "[rebondissement]", <rebondissement*_frame_*>, center, wwcenter
+LINE =[allfront], <rebondissementFrame, PTR>, <rebondissementFrame, PBR>, #000000
+TEXT = [allfront], [rebondissement], <rebondissementFrame>, center, wwcenter
 
-<deFrame> = <content, TS, 0>
+[deFrame] = framemeld(content_frames_*_12)
 LINE = [allfront], <deFrame, PTL>, <deFrame, PTR>, #000000
-LINE =[allfront], <de_*_frame_1, PTR>, <de_*_frame_1, PBR>, #000000
-LINE =[allfront], <de_*_frame_2, PTR>, <de_*_frame_2, PBR>, #000000
-LINE =[allfront], <de_*_frame_3, PTR>, <de_*_frame_3, PBR>, #000000
-TEXT = [allfront], "{1d100}", <de_*_frame_*>, center, wwcenter
+LINE =[allfront], <content_frames_1_12, PTR>, <content_frames_1_12, PBR>, #000000
+LINE =[allfront], <content_frames_2_12, PTR>, <content_frames_2_12, PBR>, #000000
+LINE =[allfront], <content_frames_3_12, PTR>, <content_frames_3_12, PBR>, #000000
+TEXT = [allfront], "{1d100}", <content_frames_*_12>, center, wwcenter
 
 ; Verso
+[back_marginX] = 17
+[back_marginY] = 20
+[back_img_sizeY] = 45
+[back_text_sizeY] = EVAL({(100 - [back_marginY] - [back_img_sizeY])/2})
+;[back_text_sizeY] = 20
 
-;;COLOR = [all-back], #000000
-<marqueFrame> = 83%, 83%, 17%, 17%
+<marqueFrame> = {100% - [back_marginX]%}, {100% - [back_marginX]%}, [back_marginX]%, [back_marginX]%
+<runeFrame> = [back_marginX]%, [back_marginY]%, {100 - 2*[back_marginX]}%, {100 - [back_marginY]}%
+RECTANGLE = [allback], <runeFrame,TS,[back_img_sizeY]%>, #ff0000
+FONT="Caladea",16,I,#000000
+TEXT = [allback], casestring([nom], U), <runeFrame,TS,[back_text_sizeY]%>, CENTER, CENTER
+FONT="Caladea",16,I,#000000
+TEXT = [allback], casestring([traduction], F), <runeFrame,TS,[back_text_sizeY]%>, CENTER, CENTER
+
 COLOR = [allback], #000000
-ICONS =[allback], "{1d4}", <marqueFrame>, 15%, 15%
+ICONS = [allback], "{1d4}", <marqueFrame>, 15%, 15%
+
+DUPLEX = [allfront], [allback]
+PRINT = DUPLEX
 
