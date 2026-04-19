@@ -11,7 +11,7 @@ LINK=runestones-data.csv, action, theme, lieu, descriptionLieu, trouble, role, o
 LINK=runes-data.csv, nom, traduction, symbole
 
 [n] = {(action) / 4} ;; Indiquez le nombre de cartes
-[allfront] = 1-{[n]}
+[allfront] = 1-{[n]+}
 [allback] = {[n] + 1}-{2 * [n]}
 [all] = rangeadd([allfront], [allback])
 
@@ -25,6 +25,11 @@ LINK=runes-data.csv, nom, traduction, symbole
 [role(count)]%,(count),1,2 = labelsub([role], [set{(count)}])
 [objectif(count)]%,(count),1,2 = labelsub([objectif], [set{(count)}])
 [descriptionPerso(count)]%,(count),1,4 = labelsub([descriptionPerso], [set{(count)}])
+
+; Obtenir les chemins des images
+[img_runes] = DIRFILES("img/runes/", "jpg")
+[names_runes] = TOKENIZESEQ(TOKENIZESEQ([img_runes], 3, \), 1, .)
+[img_verso] = TRANSLATE([nom], [names_runes], [img_runes])
 
 ; Icones de marques
 ICON = [all], 1, "img/barres/barre1.png"
@@ -171,7 +176,8 @@ TEXT = [allfront], "{1d100}", <content_frames_*_12>, center, wwcenter
 
 <marqueFrame> = {100% - [back_marginX]%}, {100% - [back_marginX]%}, [back_marginX]%, [back_marginX]%
 <runeFrame> = [back_marginX]%, [back_marginY]%, {100 - 2*[back_marginX]}%, {100 - [back_marginY]}%
-RECTANGLE = [allback], <runeFrame,TS,[back_img_sizeY]%>, #ff0000
+;RECTANGLE = [allback], <runeFrame,TS,[back_img_sizeY]%>, #ff0000
+IMAGE = [allback], [img_verso], <runeFrame,TS,[back_img_sizeY]%>, 0, P
 FONT="Caladea",16,I,#000000
 TEXT = [allback], casestring([nom], U), <runeFrame,TS,[back_text_sizeY]%>, CENTER, CENTER
 FONT="Caladea",16,I,#000000
