@@ -1,83 +1,67 @@
-BORDER=RECTANGLE,#000000,0.2
-UNIT=MM
-PAGE=210,297,LANDSCAPE,HV
-DPI=300
-CARDSIZE=63,88
-;BASERANGE=,ON
+[GAME] = "Ironsworn : Pierres de runes"
+
+;-----Data-----
 
 LINKCSV=ANSI
 LINKSEP=,
 LINK=runestones-data.csv, action, theme, lieu, descriptionLieu, trouble, role, objectif, descriptionPerso, actionCombat, contrecoup, rebondissement
-LINK=runes-data.csv, nom, traduction, symbole
 
+;----- Variable declarations-----
 [n] = {(action) / 4} ;; Indiquez le nombre de cartes
 [allfront] = 1-{[n]+}
 [allback] = {[n] + 1}-{2 * [n]}
 [all] = rangeadd([allfront], [allback])
 
-; Créer les sequences de données
-[set(count)]%,(count),1,4 = autorange([n])
-[action(count)]%,(count),1,4 = labelsub([action], [set{(count)}])
-[theme(count)]%,(count),1,4 = labelsub([theme], [set{(count)}])
-[lieu(count)]%,(count),1,2 = labelsub([lieu], [set{(count)}])
-[descriptionLieu(count)]%,(count),1,2 = labelsub([descriptionLieu], [set{(count)}])
-[trouble(count)]%,(count),1,2 = labelsub([trouble], [set{(count)}])
-[role(count)]%,(count),1,2 = labelsub([role], [set{(count)}])
-[objectif(count)]%,(count),1,2 = labelsub([objectif], [set{(count)}])
-[descriptionPerso(count)]%,(count),1,4 = labelsub([descriptionPerso], [set{(count)}])
+;-----Folders-----
+[IMGdir] = "img/"
+[MARQUESpath] = JOIN([IMGdir], "barres/")
+FOR = A, 1, 4
+    ICON = [all], {A}, JOIN([MARQUESpath], "barre{A}.png")
+NEXT
 
-; Obtenir les chemins des images
-[img_runes] = DIRFILES("img/runes/", "jpg")
-[names_runes] = TOKENIZESEQ(TOKENIZESEQ([img_runes], 3, \), 1, .)
-[img_verso] = TRANSLATE([nom], [names_runes], [img_runes])
+;-----File settings-----
+BORDER=RECTANGLE,#000000,0.2
+UNIT=MM
+PAGE=210,297,LANDSCAPE,HV
+DPI=300
+CARDSIZE=63,88
 
-; Icones de marques
-ICON = [all], 1, "img/barres/barre1.png"
-ICON = [all], 2, "img/barres/barre2.png"
-ICON = [all], 3, "img/barres/barre3.png"
-ICON = [all], 4, "img/barres/barre4.png"
+SECTION=Recto,ON
+     ;----- Variable declarations-----
+    [content_marginX] = 4
+    [content_startY] = 9
+    [block_sizeX] = 23
+    [block_sizeY] = 7.5
+    ; Sequences de données
+    [set(count)]%,(count),1,4 = autorange([n])
+    [action(count)]%,(count),1,4 = labelsub([action], [set{(count)}])
+    [theme(count)]%,(count),1,4 = labelsub([theme], [set{(count)}])
+    [lieu(count)]%,(count),1,2 = labelsub([lieu], [set{(count)}])
+    [descriptionLieu(count)]%,(count),1,2 = labelsub([descriptionLieu], [set{(count)}])
+    [trouble(count)]%,(count),1,2 = labelsub([trouble], [set{(count)}])
+    [role(count)]%,(count),1,2 = labelsub([role], [set{(count)}])
+    [objectif(count)]%,(count),1,2 = labelsub([objectif], [set{(count)}])
+    [descriptionPerso(count)]%,(count),1,4 = labelsub([descriptionPerso], [set{(count)}])
+     ;-----Frames-----
+     <header> = 0, 0, 100%, 8%
+;    <content> = 4%, 10%, 92%, 88%
+     {[content_frames_] = framebox([content_marginX]%,
+        [content_startY]%,
+        {100-2*[content_marginX]}%,
+        {12*[block_sizeY]}%,
+        [block_sizeX]%,
+        [block_sizeY]%,
+        C_)}
+     {[barre] = framebar(
+        {[content_marginX]+[block_sizeX]/2}%,
+        {([content_startY]-2)/2}%,
+        {100 - [content_marginX]-[block_sizeX]/2}%,
+        {([content_startY]-2)/2}%,
+        [block_sizeX]%, [block_sizeY]%, 4)}
 
-;; Définir les frames
-<header> = 0, 0, 100%, 8%
-<content> = 4%, 10%, 92%, 88%
-
-
-[content_marginX] = 4
-[content_startY] = 9
-[block_sizeX] = 23
-[block_sizeY] = 7.5
-
-{[info_structure] = "action_1|
-theme_2|
-lieu_3|
-descriptionLieu_4|
-trouble_5|
-role_6|
-objectif_7|
-descriptionPerso_8|
-actionCombat_9|
-contrecoup_10|
-rebondissement_11|
-de_12"}
-
-{[content_frames_] = framebox([content_marginX]%,
-[content_startY]%,
-{100-2*[content_marginX]}%,
-{12*[block_sizeY]}%,
-[block_sizeX]%,
-[block_sizeY]%,
-C_)}
-
-{[barre] = framebar(
-{[content_marginX]+[block_sizeX]/2}%,
-{([content_startY]-2)/2}%,
-{100 - [content_marginX]-[block_sizeX]/2}%,
-{([content_startY]-2)/2}%,
-[block_sizeX]%, [block_sizeY]%, 4)}
-
-;; Header
-RECTANGLE = [allfront], <header>, #4e7079
-ICONS = [allfront], {°}, <barre?>, 8%, 8%
+    ;; Header
+    RECTANGLE = [allfront], <header>, #4e7079
+    ICONS = [allfront], {°}, <barre?>, 8%, 8%
 
 ;; Content
 EDGE = [allfront], CUSTOM, OSSS, ROUND
@@ -166,25 +150,36 @@ LINE =[allfront], <content_frames_1_12, PTR>, <content_frames_1_12, PBR>, #00000
 LINE =[allfront], <content_frames_2_12, PTR>, <content_frames_2_12, PBR>, #000000
 LINE =[allfront], <content_frames_3_12, PTR>, <content_frames_3_12, PBR>, #000000
 TEXT = [allfront], "{1d100}", <content_frames_*_12>, center, wwcenter
+ENDSECTION
 
 ; Verso
-[back_marginX] = 17
-[back_marginY] = 20
-[back_img_sizeY] = 45
-[back_text_sizeY] = EVAL({(100 - [back_marginY] - [back_img_sizeY])/2})
-;[back_text_sizeY] = 20
+SECTION=Verso,ON
+    LINKCSV=UTF8
+    LINK=runes-data.csv, nom, traduction, symbole
 
-<marqueFrame> = {100% - [back_marginX]%}, {100% - [back_marginX]%}, [back_marginX]%, [back_marginX]%
-<runeFrame> = [back_marginX]%, [back_marginY]%, {100 - 2*[back_marginX]}%, {100 - [back_marginY]}%
-;RECTANGLE = [allback], <runeFrame,TS,[back_img_sizeY]%>, #ff0000
-IMAGE = [allback], [img_verso], <runeFrame,TS,[back_img_sizeY]%>, 0, P
-FONT="Caladea",16,I,#000000
-TEXT = [allback], casestring([nom], U), <runeFrame,TS,[back_text_sizeY]%>, CENTER, CENTER
-FONT="Caladea",16,I,#000000
-TEXT = [allback], casestring([traduction], F), <runeFrame,TS,[back_text_sizeY]%>, CENTER, CENTER
+    ;-----Folders-----
+    [RUNESdir] = JOIN([IMGdir], "runes/")
+    [RUNESpath] = DIRFILES([RUNESdir], "jpg")
+    ; Obtenir les chemins des images
+    [RUNESnames] = TOKENIZESEQ(TOKENIZESEQ([RUNESpath], 3, \), 1, .)
+    [RUNESimg] = TRANSLATE([nom], [RUNESnames], [RUNESpath])
+    ;----- Variable declarations-----
+    [back_marginX] = 17
+    [back_marginY] = 20
+    [back_img_sizeY] = 45
+    [back_text_sizeY] = EVAL({(100 - [back_marginY] - [back_img_sizeY])/2})
+    ;-----Frames-----
+    <marqueFrame> = {100% - [back_marginX]%},{100% - [back_marginX]%}, [back_marginX]%, [back_marginX]%
+    <runeFrame> = [back_marginX]%, [back_marginY]%, {100 - 2*[back_marginX]}%, {100 - [back_marginY]}%
 
-COLOR = [allback], #000000
-ICONS = [allback], "{1d4}", <marqueFrame>, 15%, 15%
+    IMAGE = [allback], [RUNESimg], <runeFrame,TS,[back_img_sizeY]%>, 0, P
+    FONT="Caladea",16,I,#000000
+    TEXT = [allback], casestring([nom], U), <runeFrame,TS,[back_text_sizeY]%>, CENTER, CENTER
+    TEXT = [allback], casestring([traduction], F), <runeFrame,TS,[back_text_sizeY]%>, CENTER, CENTER
+
+    COLOR = [allback], #000000
+    ICONS = [allback], "{1d4}", <marqueFrame>, 15%, 15%
+ENDSECTION
 
 DUPLEX = [allfront], [allback]
 PRINT = DUPLEX
