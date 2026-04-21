@@ -4,6 +4,7 @@
 
 LINKCSV=ANSI
 LINKSEP=,
+;; Modifier pour changer les données des oracles
 LINK=runestones-data.csv, action, theme, lieu, descriptionLieu, trouble, role, objectif, descriptionPerso, actionCombat, contrecoup, rebondissement
 
 ;----- Variable declarations-----
@@ -236,6 +237,7 @@ ENDSECTION
 ; Verso
 SECTION=Verso,ON
     LINKCSV=UTF8
+    ;; Modifier pour changer les runes
     LINK=runes-data.csv, nom, traduction, symbole
 
     ;-----Folders-----
