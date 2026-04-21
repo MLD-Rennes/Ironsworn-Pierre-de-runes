@@ -30,23 +30,13 @@ PAGE=210,297,LANDSCAPE,HV
 DPI=300
 CARDSIZE=63,88
 
-SECTION=Main,OFF
+SECTION=Main,ON
 ; Card with the signification of the fields.
     ;----- Variable declarations-----
-;    [m_content_marginX] = 4
-;    [m_content_startY] = 9
-;    [m_block_sizeX] = {100 - (2*[content_marginX])}
-;    [m_block_sizeY] = 7.5
+    [m_block_sizeY] = 7.5
     ;-----Frames-----
      <m_header> = 0, 0, 100%, 8%
      <m_content> = 4%, 10%, 92%, 88%
-     ;{[content_frames_] = framebar(50%,
-;        [content_startY]%,
-;        50%,
-;        {100-([block_sizeY]/2)}%,
-;        [block_sizeX]%,
-;        [block_sizeY]%,
-;        12,)}
 
     ;; Header
     RECTANGLE = [mainCard], <m_header>, #4e7079
@@ -57,66 +47,67 @@ SECTION=Main,OFF
     EDGE = [mainCard], CUSTOM, OSSS, ROUND
     FONT = Arial, 9, TX, #000000
 
-    <actionFrame> = <m_content, TS, [block_sizeY]%>
-    RECTANGLE = [mainCard], <actionFrame>, #eeeeee
-    LINE = [mainCard], <actionFrame, PTL>, <actionFrame, PTR>, #000000
-    TEXT = [mainCard], "Action", <actionFrame>, center, wwcenter
+    <m_actionFrame> = <m_content, TS, [m_block_sizeY]%>
+    RECTANGLE = [mainCard], <m_actionFrame>, #eeeeee
+    LINE = [mainCard], <m_actionFrame, PTL>, <m_actionFrame, PTR>, #000000
+    TEXT = [mainCard], "Action", <m_actionFrame>, center, wwcenter
 
-    <themeFrame> = <m_content, TS, [block_sizeY]%>
-    LINE = [mainCard], <themeFrame, PTL>, <themeFrame, PTR>, #000000
-    TEXT = [mainCard], "Thème", <themeFrame>, center, wwcenter
+    <m_themeFrame> = <m_content, TS, [m_block_sizeY]%>
+    LINE = [mainCard], <m_themeFrame, PTL>, <m_themeFrame, PTR>, #000000
+    TEXT = [mainCard], "Thème", <m_themeFrame>, center, wwcenter
 
-    <lieuFrame> =  <m_content, TS, [block_sizeY]%>
-    RECTANGLE = [mainCard], <lieuFrame>, #eeeeee
-    LINE = [mainCard], <lieuFrame, PTL>, <lieuFrame, PTR>, #000000
-    TEXT = [mainCard], "Lieu", <lieuFrame>, center, wwcenter
+    <m_lieuFrame> =  <m_content, TS, [m_block_sizeY]%>
+    RECTANGLE = [mainCard], <m_lieuFrame>, #eeeeee
+    LINE = [mainCard], <m_lieuFrame, PTL>, <m_lieuFrame, PTR>, #000000
+    TEXT = [mainCard], "Lieu", <m_lieuFrame>, center, wwcenter
 
-    <descriptionLieuFrame> =  <m_content, TS, [block_sizeY]%>
-    LINE = [mainCard], <descriptionLieuFrame, PTL>, <descriptionLieuFrame, PTR>, #000000
-    TEXT = [mainCard], "Description des lieux", <descriptionLieuFrame>, center, wwcenter
+    <m_lieuFrameFrame> =  <m_content, TS, [m_block_sizeY]%>
+    LINE = [mainCard], <m_lieuFrameFrame, PTL>, <m_lieuFrameFrame, PTR>, #000000
+    TEXT = [mainCard], "Description des lieux", <m_lieuFrameFrame>, center, wwcenter
 
-    <troubleFrame> =  <m_content, TS, [block_sizeY]%>
-    RECTANGLE = [mainCard], <troubleFrame>, #eeeeee
-    LINE = [mainCard], <troubleFrame, PTL>, <troubleFrame, PTR>, #000000
-    TEXT = [mainCard], "Trouble de village", <troubleFrame>, center, wwcenter
+    <m_troubleFrame> =  <m_content, TS, [m_block_sizeY]%>
+    RECTANGLE = [mainCard], <m_troubleFrame>, #eeeeee
+    LINE = [mainCard], <m_troubleFrame, PTL>, <m_troubleFrame, PTR>, #000000
+    TEXT = [mainCard], "Trouble de village", <m_troubleFrame>, center, wwcenter
 
-    <roleFrame> =  <m_content, TS, [block_sizeY]%>
-    LINE = [mainCard], <roleFrame, PTL>, <roleFrame, PTR>, #000000
-    TEXT = [mainCard], "Rôle de personnage", <roleFrame>, center, wwcenter
+    <m_roleFrame> =  <m_content, TS, [m_block_sizeY]%>
+    LINE = [mainCard], <m_roleFrame, PTL>, <m_roleFrame, PTR>, #000000
+    TEXT = [mainCard], "Rôle de personnage", <m_roleFrame>, center, wwcenter
 
-    <objectifFrame> =  <m_content, TS, [block_sizeY]%>
-    RECTANGLE = [mainCard], <objectifFrame>, #eeeeee
-    LINE = [mainCard], <objectifFrame, PTL>, <objectifFrame, PTR>, #000000
-    TEXT = [mainCard], "Objectif de personnage", <objectifFrame>, center, wwcenter
+    <m_objectifFrame> =  <m_content, TS, [m_block_sizeY]%>
+    RECTANGLE = [mainCard], <m_objectifFrame>, #eeeeee
+    LINE = [mainCard], <m_objectifFrame, PTL>, <m_objectifFrame, PTR>, #000000
+    TEXT = [mainCard], "Objectif de personnage", <m_objectifFrame>, center, wwcenter
 
-    <descriptionPersoFrame> =  <m_content, TS, [block_sizeY]%>
-    LINE = [mainCard], <actionFrame, PTL>, <actionFrame, PTR>, #000000
-    TEXT = [mainCard], "Description de personnage", <descriptionPersoFrame>, center, wwcenter
+    <m_descriptionPersoFrame> =  <m_content, TS, [m_block_sizeY]%>
+    LINE = [mainCard], <m_descriptionPersoFrame, PTL>, <m_descriptionPersoFrame, PTR>, #000000
+    TEXT = [mainCard], "Description de personnage", <m_descriptionPersoFrame>, center, wwcenter
 
-    <actionCombatFrame> = <m_content, TS, [block_sizeY]%>
-    RECTANGLE = [mainCard], <actionCombatFrame>, #eeeeee
-    LINE = [mainCard], <actionCombatFrame, PTL>, <actionCombatFrame, PTR>, #000000
-    TEXT = [mainCard], "Action de combat", <actionCombatFrame>, center, wwcenter
+    <m_actionCombatFrame> = <m_content, TS, [m_block_sizeY]%>
+    RECTANGLE = [mainCard], <m_actionCombatFrame>, #eeeeee
+    LINE = [mainCard], <m_actionCombatFrame, PTL>, <m_actionCombatFrame, PTR>, #000000
+    TEXT = [mainCard], "Action de combat", <m_actionCombatFrame>, center, wwcenter
 
-    <contrecoupFrame> = <m_content, TS, [block_sizeY]%>
-    LINE = [mainCard], <contrecoupFrame, PTL>, <contrecoupFrame, PTR>, #000000
-    TEXT = [mainCard], "Contrecoup mystique", <contrecoupFrame>, center, wwcenter
+    <m_contrecoupFrame> = <m_content, TS, [m_block_sizeY]%>
+    LINE = [mainCard], <m_contrecoupFrame, PTL>, <m_contrecoupFrame, PTR>, #000000
+    TEXT = [mainCard], "Contrecoup mystique", <m_contrecoupFrame>, center, wwcenter
 
-    <rebondissementFrame> =  <m_content, TS, [block_sizeY]%>
-    RECTANGLE = [mainCard], <rebondissementFrame>, #eeeeee
-    LINE = [mainCard], <rebondissementFrame, PTL>, <rebondissementFrame, PTR>, #000000
-    TEXT = [mainCard], "Rebondissement majeur", <rebondissementFrame>, center, wwcenter
+    <m_rebondissementFrame> =  <m_content, TS, [m_block_sizeY]%>
+    RECTANGLE = [mainCard], <m_rebondissementFrame>, #eeeeee
+    LINE = [mainCard], <m_rebondissementFrame, PTL>, <m_rebondissementFrame, PTR>, #000000
+    TEXT = [mainCard], "Rebondissement majeur", <m_rebondissementFrame>, center, wwcenter
 
-    <deFrame> =  <m_content, TS, [block_sizeY]%>
-    LINE = [mainCard], <deFrame, PTL>, <deFrame, PTR>, #000000
-    TEXT = [mainCard], "Dé de 100", <deFrame>, center, wwcenter
+    <m_deFrame> =  <m_content, TS, [m_block_sizeY]%>
+    LINE = [mainCard], <m_deFrame, PTL>, <m_deFrame, PTR>, #000000
+    TEXT = [mainCard], "Dé de 100", <m_deFrame>, center, wwcenter
 
-        FONT = "Caladea", 20, T, #000000
+    FONT = "Caladea", 20, T, #000000
     TEXT = [mainCardVerso], [GAME], 20%, 0, 60%, 100%, CENTER, WWCENTER
 ENDSECTION
 
 SECTION=Recto,ON
-     ;----- Variable declarations-----
+    BASERANGE = [allfront], OFF
+    ;----- Variable declarations-----
     [content_marginX] = 4
     [content_startY] = 9
     [block_sizeX] = 23
@@ -131,6 +122,7 @@ SECTION=Recto,ON
     [role(count)]%,(count),1,2 = labelsub([role], [set{(count)}])
     [objectif(count)]%,(count),1,2 = labelsub([objectif], [set{(count)}])
     [descriptionPerso(count)]%,(count),1,4 = labelsub([descriptionPerso], [set{(count)}])
+     [actionCombat] = [actionCombat]
      ;-----Frames-----
      <header> = 0, 0, 100%, 8%
 ;    <content> = 4%, 10%, 92%, 88%
@@ -210,7 +202,7 @@ SECTION=Recto,ON
     TEXT = [allfront], "[objectif{TOKENIZE(µ, 3, _)}]", <objectif_frames_*>, center, wwcenter
 
     [descriptionPersoFrame] = framemeld(content_frames_*_8)
-    LINE = [allfront], <actionFrame, PTL>, <actionFrame, PTR>, #000000
+    LINE = [allfront], <descriptionPersoFrame, PTL>, <descriptionPersoFrame, PTR>, #000000
     LINE =[allfront], <content_frames_1_8, PTR>, <content_frames_1_8, PBR>, #000000
     LINE =[allfront], <content_frames_2_8, PTR>, <content_frames_2_8, PBR>, #000000
     LINE =[allfront], <content_frames_3_8, PTR>, <content_frames_3_8, PBR>, #000000
@@ -239,8 +231,6 @@ SECTION=Recto,ON
     LINE =[allfront], <content_frames_2_12, PTR>, <content_frames_2_12, PBR>, #000000
     LINE =[allfront], <content_frames_3_12, PTR>, <content_frames_3_12, PBR>, #000000
     TEXT = [allfront], "{1d100}", <content_frames_*_12>, center, wwcenter
-
-
 ENDSECTION
 
 ; Verso
